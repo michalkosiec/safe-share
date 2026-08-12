@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="SafeShare.Api/SafeShare.Api.csproj" />
+  <Project Path="SafeShare.Application/SafeShare.Application.csproj" />
+  <Project Path="SafeShare.Domain/SafeShare.Domain.csproj" />
+  <Project Path="SafeShare.Infrastructure/SafeShare.Infrastructure.csproj" />
+</Solution>

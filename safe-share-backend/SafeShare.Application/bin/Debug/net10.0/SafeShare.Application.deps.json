@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "SafeShare.Application/1.0.0": {
+        "dependencies": {
+          "SafeShare.Domain": "1.0.0"
+        },
+        "runtime": {
+          "SafeShare.Application.dll": {}
+        }
+      },
+      "SafeShare.Domain/1.0.0": {
+        "runtime": {
+          "SafeShare.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SafeShare.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SafeShare.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

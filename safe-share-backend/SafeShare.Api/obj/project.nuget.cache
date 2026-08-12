@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "dgSpecHash": "VV1OCZsbcJw=",
+  "success": true,
+  "projectFilePath": "/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Api/SafeShare.Api.csproj",
+  "expectedPackageFiles": [
+    "/home/peccator/.nuget/packages/microsoft.aspnetcore.openapi/10.0.10/microsoft.aspnetcore.openapi.10.0.10.nupkg.sha512",
+    "/home/peccator/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'Microsoft.OpenApi' 2.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc",
+      "projectPath": "/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Api/SafeShare.Api.csproj",
+      "warningLevel": 1,
+      "filePath": "/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Api/SafeShare.Api.csproj",
+      "libraryId": "Microsoft.OpenApi",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}

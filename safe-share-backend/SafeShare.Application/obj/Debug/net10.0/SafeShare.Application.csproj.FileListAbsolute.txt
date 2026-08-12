@@ -1,0 +1,15 @@
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/bin/Debug/net10.0/SafeShare.Application.deps.json
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/bin/Debug/net10.0/SafeShare.Application.dll
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/bin/Debug/net10.0/SafeShare.Application.pdb
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/bin/Debug/net10.0/SafeShare.Domain.dll
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/bin/Debug/net10.0/SafeShare.Domain.pdb
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/SafeShare.Application.csproj.AssemblyReference.cache
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/SafeShare.Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/SafeShare.Application.AssemblyInfoInputs.cache
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/SafeShare.Application.AssemblyInfo.cs
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/SafeShare.Application.csproj.CoreCompileInputs.cache
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/SafeShar.49234654.Up2Date
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/SafeShare.Application.dll
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/refint/SafeShare.Application.dll
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/SafeShare.Application.pdb
+/home/peccator/Documents/Projects/safe-share/safe-share-backend/SafeShare.Application/obj/Debug/net10.0/ref/SafeShare.Application.dll
