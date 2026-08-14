@@ -9,4 +9,5 @@ public interface IGroupRepository
     Task CreateAsync(Group group);
     Task UpdateAsync(Guid id, Group group);
     Task DeleteAsync(Guid id);
+    Task SaveChangesAsync();
 }
