@@ -12,6 +12,6 @@ public class GroupUserConfiguration : IEntityTypeConfiguration<GroupUser>
         builder.HasKey(x => new { x.GroupId, x.UserId });
 
         builder.HasOne<Group>().WithMany(x => x.Users).HasForeignKey(x => x.GroupId).OnDelete(DeleteBehavior.Cascade);
-        builder.HasOne<User>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne<User>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -8,6 +8,8 @@ namespace SafeShare.Domain.Entities
         public string PublicKey { get; private set; }
         public string EncryptedPrivateKey { get; private set; }
         
+        private User() {}
+        
         public User(string name, string passwordHash, string publicKey, string encryptedPrivateKey)
         {
             Id = Guid.NewGuid();

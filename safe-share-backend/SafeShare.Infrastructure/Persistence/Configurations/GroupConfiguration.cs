@@ -11,6 +11,6 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
         builder.ToTable("Groups");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
-        builder.Property(x => x.Users).UsePropertyAccessMode(PropertyAccessMode.Field);
+        builder.Navigation(x => x.Users).UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }
