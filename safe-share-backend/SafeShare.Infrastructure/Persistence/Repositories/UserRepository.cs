@@ -35,4 +35,9 @@ public class UserRepository(AppDbContext dbContext): IUserRepository
         
         dbContext.Users.Remove(user);
     }
+
+    public async Task SaveChangesAsync()
+    {
+        await dbContext.SaveChangesAsync();
+    }
 }

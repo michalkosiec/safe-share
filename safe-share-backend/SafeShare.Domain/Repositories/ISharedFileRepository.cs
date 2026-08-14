@@ -9,4 +9,5 @@ public interface ISharedFileRepository
     Task CreateAsync(SharedFile sharedFile);
     Task UpdateAsync(Guid id, SharedFile sharedFile);
     Task DeleteAsync(Guid id);
+    Task SaveChangesAsync();
 }
