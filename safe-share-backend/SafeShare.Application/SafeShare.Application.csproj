@@ -4,6 +4,10 @@
     <ProjectReference Include="..\SafeShare.Domain\SafeShare.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="WolverineFx" Version="6.28.0" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
