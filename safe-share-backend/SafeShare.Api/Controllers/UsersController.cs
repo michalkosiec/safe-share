@@ -8,6 +8,16 @@ namespace SafeShare.Api.Controllers;
 [Route("/api/users")]
 public class UsersController(IMessageBus bus) : ControllerBase
 {
+    // [HttpGet("{id:Guid}")]
+    // public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    // {
+    // }
+    //
+    // [HttpGet]
+    // public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
+    // {
+    // }
+    
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] UserCreateRequest request, CancellationToken cancellationToken)
     {
@@ -17,6 +27,7 @@ public class UsersController(IMessageBus bus) : ControllerBase
         await bus.InvokeAsync(command, cancellationToken);
         return Ok();
     }
-
+    
     public record UserCreateRequest(string Name, string Password, string PublicKey, string EncryptedPrivateKey);
+    public record UserUpdateRequest(string Name, string Password, string PublicKey, string EncryptedPrivateKey);
 }

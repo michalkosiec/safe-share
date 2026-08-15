@@ -22,7 +22,7 @@ public class Pbkdf2PasswordHasher : IPasswordHasher
             KeySize
         );
         
-        return string .Join(Delimiter.ToString(), Convert.ToBase64String(salt), 
+        return string .Join(Delimiter.ToString(), HashIterations, Convert.ToBase64String(salt), 
             Convert.ToBase64String(hash));
     }
 

@@ -12,7 +12,7 @@ using SafeShare.Infrastructure.Persistence;
 namespace SafeShare.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260814174413_InitialCreate")]
+    [Migration("20260815142315_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -98,8 +98,8 @@ namespace SafeShare.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(260)
+                        .HasColumnType("character varying(260)");
 
                     b.Property<string>("PublicKey")
                         .IsRequired()

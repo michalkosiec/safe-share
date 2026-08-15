@@ -11,6 +11,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddScoped<SafeShare.Domain.Repositories.IUserRepository, SafeShare.Infrastructure.Persistence.Repositories.UserRepository>();
         services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));

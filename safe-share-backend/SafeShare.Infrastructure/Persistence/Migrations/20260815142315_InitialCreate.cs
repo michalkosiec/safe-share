@@ -30,7 +30,7 @@ namespace SafeShare.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    PasswordHash = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    PasswordHash = table.Column<string>(type: "character varying(260)", maxLength: 260, nullable: false),
                     PublicKey = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     EncryptedPrivateKey = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },

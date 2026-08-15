@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SafeShare.Application.Features.Users;
 using SafeShare.Infrastructure;
 using SafeShare.Infrastructure.Persistence;
 using Scalar.AspNetCore;
@@ -6,7 +7,14 @@ using Wolverine;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseWolverine();
+builder.Host.UseWolverine(opts =>
+{
+    opts.Discovery.IncludeAssembly(typeof(SafeShare.Application.Features.Users.CreateUserHandler).Assembly);
+    
+    // ⚡ Używamy wbudowanej metody, która automatycznie cofa restrykcje wersji 6.0
+    // i bezbłędnie radzi sobie z lambdami Entity Frameworka:
+    opts.RestoreV5Defaults();
+});
 
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -21,5 +29,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapControllers();
 
 app.Run();
