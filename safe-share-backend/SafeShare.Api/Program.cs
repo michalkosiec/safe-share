@@ -4,15 +4,14 @@ using SafeShare.Infrastructure;
 using SafeShare.Infrastructure.Persistence;
 using Scalar.AspNetCore;
 using Wolverine;
+using Wolverine.FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseWolverine(opts =>
 {
+    opts.UseFluentValidation();
     opts.Discovery.IncludeAssembly(typeof(SafeShare.Application.Features.Users.CreateUserHandler).Assembly);
-    
-    // ⚡ Używamy wbudowanej metody, która automatycznie cofa restrykcje wersji 6.0
-    // i bezbłędnie radzi sobie z lambdami Entity Frameworka:
     opts.RestoreV5Defaults();
 });
 

@@ -1,0 +1,6 @@
+﻿services:
+  safeshare.api:
+    image: safeshare.api
+    build:
+      context: .
+      dockerfile: SafeShare.Api/Dockerfile
