@@ -12,7 +12,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Scalar.AspNetCore" Version="2.16.20" />
     <PackageReference Include="WolverineFx" Version="6.28.0" />
+    <PackageReference Include="WolverineFx.RuntimeCompilation" Version="6.28.0" />
   </ItemGroup>
 
   <ItemGroup>
