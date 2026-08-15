@@ -8,22 +8,22 @@ public class SharedFileRepository(AppDbContext dbContext): ISharedFileRepository
 {
     public async Task<SharedFile?> GetAsync(Guid id)
     {
-        return await DbContext.SharedFile.FirstOrDefaultAsync(x => x.Id == id);
+        return await dbContext.SharedFiles.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IEnumerable<SharedFile>> GetAllAsync()
     {
-        return await DbContext.SharedFile.ToListAsync();
+        return await dbContext.SharedFiles.ToListAsync();
     }
 
     public async Task CreateAsync(SharedFile sharedFile)
     {
-        await dbContext.SharedFile.AddAsync(sharedFile);
+        await dbContext.SharedFiles.AddAsync(sharedFile);
     }
 
     public Task UpdateAsync(Guid id, SharedFile sharedFile)
     {
-        dbContext.SharedFile.Update(sharedFile);
+        dbContext.SharedFiles.Update(sharedFile);
         return Task.CompletedTask;
     }
 
@@ -33,7 +33,7 @@ public class SharedFileRepository(AppDbContext dbContext): ISharedFileRepository
         if  (sharedFile == null)
             throw new KeyNotFoundException($"FIle with id {id} not found");
 
-        dbContext.Users.Remove(sharedFile);
+        dbContext.SharedFiles.Remove(sharedFile);
     }
 
     public async Task SaveChangesAsync()

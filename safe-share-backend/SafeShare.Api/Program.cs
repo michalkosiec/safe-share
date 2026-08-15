@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using SafeShare.Infrastructure.Persistence;
+using Wolverine;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseWolverine();
+
 builder.Services.AddOpenApi();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddControllers();
 
