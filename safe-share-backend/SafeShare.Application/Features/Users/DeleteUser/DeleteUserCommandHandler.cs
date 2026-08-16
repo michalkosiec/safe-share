@@ -1,10 +1,7 @@
 using SafeShare.Domain.Repositories;
 
 namespace SafeShare.Application.Features.Users.DeleteUser;
-
-public record DeleteUserCommand(Guid Id);
-
-public class DeleteUserHandler(IUserRepository repo)
+public class DeleteUserCommandHandler(IUserRepository repo)
 {
     public async Task HandleAsync(DeleteUserCommand command, CancellationToken cancellationToken)
     {

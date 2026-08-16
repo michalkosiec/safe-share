@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+
+**/.vs/
+**/.vscode/
+**/*.user
+**/*.suo
+**/*.userosprefs
+
+.git/
+.gitignore
+**/.gitignore
+.github/
+
+**/.DS_Store
+**/Thumbs.db

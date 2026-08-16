@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseWolverine(opts =>
 {
     opts.UseFluentValidation();
-    opts.Discovery.IncludeAssembly(typeof(SafeShare.Application.Features.Users.CreateUserHandler).Assembly);
+    opts.Discovery.IncludeAssembly(typeof(SafeShare.Application.Common.AssemblyReference).Assembly);
     opts.RestoreV5Defaults();
 });
 

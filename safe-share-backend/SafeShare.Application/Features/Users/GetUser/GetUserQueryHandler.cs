@@ -1,10 +1,9 @@
+using SafeShare.Application.Features.Users.DTOs;
 using SafeShare.Domain.Repositories;
 
-namespace SafeShare.Application.Features.Users;
+namespace SafeShare.Application.Features.Users.GetUser;
 
-public record GetUserQuery(Guid Id);
-
-public class GetUserHandler(IUserRepository repo)
+public class GetUserQueryHandler(IUserRepository repo)
 {
     public async Task<UserResponse> HandleAsync(GetUserQuery query, CancellationToken cancellationToken)
     {

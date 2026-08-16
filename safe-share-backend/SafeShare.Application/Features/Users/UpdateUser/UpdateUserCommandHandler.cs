@@ -1,10 +1,9 @@
+using SafeShare.Application.Features.Users.DTOs;
 using SafeShare.Domain.Repositories;
 
 namespace SafeShare.Application.Features.Users.UpdateUser;
 
-public record UpdateUserCommand(Guid Id, string Name, string PublicKey, string EncryptedPrivateKey);
-
-public class UpdateUserHandler(IUserRepository repo)
+public class UpdateUserCommandHandler(IUserRepository repo)
 {
     public async Task<UserResponse> HandleAsync(UpdateUserCommand command, CancellationToken cancellationToken)
     {

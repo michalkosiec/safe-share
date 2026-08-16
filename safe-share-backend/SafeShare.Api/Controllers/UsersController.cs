@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using SafeShare.Application.Features.Users;
+using SafeShare.Application.Features.Users.CreateUser;
 using SafeShare.Application.Features.Users.DeleteUser;
+using SafeShare.Application.Features.Users.DTOs;
+using SafeShare.Application.Features.Users.GetAllUsers;
+using SafeShare.Application.Features.Users.GetUser;
 using SafeShare.Application.Features.Users.UpdateUser;
 using Wolverine;
 

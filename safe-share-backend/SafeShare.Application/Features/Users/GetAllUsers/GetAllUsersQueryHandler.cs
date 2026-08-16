@@ -1,10 +1,9 @@
+using SafeShare.Application.Features.Users.DTOs;
 using SafeShare.Domain.Repositories;
 
-namespace SafeShare.Application.Features.Users;
+namespace SafeShare.Application.Features.Users.GetAllUsers;
 
-public record GetAllUsersQuery();
-
-public class GetAllUsersHandler(IUserRepository repo)
+public class GetAllUsersQueryHandler(IUserRepository repo)
 {
     public async Task<IEnumerable<UserResponse>> HandleAsync(GetAllUsersQuery query, CancellationToken cancellationToken)
     {

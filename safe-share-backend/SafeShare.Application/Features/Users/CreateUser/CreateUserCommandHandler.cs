@@ -1,12 +1,10 @@
 using SafeShare.Application.Common.Interfaces;
+using SafeShare.Application.Features.Users.DTOs;
 using SafeShare.Domain.Entities;
 using SafeShare.Domain.Repositories;
 
-namespace SafeShare.Application.Features.Users;
-
-public record CreateUserCommand(string Name, string Password, string PublicKey, string EncryptedPrivateKey);
-
-public class CreateUserHandler(IPasswordHasher passwordHasher, IUserRepository repo)
+namespace SafeShare.Application.Features.Users.CreateUser;
+public class CreateUserCommandHandler(IPasswordHasher passwordHasher, IUserRepository repo)
 {
     public async Task<UserResponse> HandleAsync(CreateUserCommand command, CancellationToken cancellationToken)
     {
