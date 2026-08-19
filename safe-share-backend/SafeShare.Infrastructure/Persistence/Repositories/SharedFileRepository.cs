@@ -31,7 +31,7 @@ public class SharedFileRepository(AppDbContext dbContext): ISharedFileRepository
     {
         var sharedFile = await GetAsync(id, cancellationToken);
         if  (sharedFile == null)
-            throw new KeyNotFoundException($"FIle with id {id} not found");
+            throw new KeyNotFoundException($"File with id {id} not found");
 
         dbContext.SharedFiles.Remove(sharedFile);
     }
