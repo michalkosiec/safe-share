@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SafeShare.Application.Features.Users;
 using SafeShare.Infrastructure;
 using SafeShare.Infrastructure.Persistence;
+using SafeShare.Infrastructure.Storage;
 using Scalar.AspNetCore;
 using Wolverine;
 using Wolverine.FluentValidation;
@@ -25,9 +26,10 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     
-    // Creates new db if doesn't exist yet
-    dbContext.Database.Migrate();
+    await dbContext.Database.MigrateAsync();
 }
+
+await app.Services.InitializeAsync();
 
 if (app.Environment.IsDevelopment())
 {
