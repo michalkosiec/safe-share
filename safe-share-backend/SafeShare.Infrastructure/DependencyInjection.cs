@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SafeShare.Application.Common.Interfaces;
+using SafeShare.Infrastructure.Authentication;
 using SafeShare.Infrastructure.Identity;
 using SafeShare.Infrastructure.Persistence;
 using SafeShare.Infrastructure.Storage;
@@ -23,9 +24,14 @@ public static class DependencyInjection
         
         services.AddScoped<IFileStorageService, S3FileStorageService>();
         
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         
         services.AddScoped<SafeShare.Domain.Repositories.IUserRepository, SafeShare.Infrastructure.Persistence.Repositories.UserRepository>();
+        
         services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
+        
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
