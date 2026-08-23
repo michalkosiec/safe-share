@@ -1,13 +1,18 @@
-import {useEffect, useRef, useState} from "react";
-// @ts-ignore
+import {type SubmitEvent, useEffect, useRef, useState} from "react";
+// @ts-expect-error no types for three
 import * as THREE from 'three';
-// @ts-ignore
+// @ts-expect-error no types for vanta
 import FOG from 'vanta/src/vanta.fog';
 import { User, Lock } from "lucide-react";
+import {Link} from "react-router-dom";
+
+interface VantaEffect {
+    destroy: () => void;
+}
 
 export default function Login() {
     const vantaRef = useRef<HTMLDivElement>(null);
-    const [vantaEffect, setVantaEffect] = useState<any>(null);
+    const [vantaEffect, setVantaEffect] = useState<VantaEffect | null>(null);
 
     useEffect(() => {
         if (!vantaEffect && vantaRef) {
@@ -24,39 +29,41 @@ export default function Login() {
                 lowlightColor: 0x437f9d,
                 baseColor: 0xffd8d8
             }));
-
-            return () => {
-                if (vantaEffect)
-                    vantaEffect.destroy();
-            }
+        }
+        return () => {
+            if (vantaEffect)
+                vantaEffect.destroy();
         }
     }, [vantaEffect]);
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("Login clicked!")
     }
     return <div ref={vantaRef} className="min-h-screen flex justify-center items-center">
-        <div className="flex flex-col w-160 h-120 p-6 bg-[rgba(1,1,1,0.1)] rounded-xl backdrop-blur-md border border-white/10 text-white shadow-2xl">
+        <div className="flex flex-col w-160 p-6 bg-[rgba(255,255,255,0.4)] rounded-xl backdrop-blur-md border border-white/10 shadow-2xl">
             <div>
                 <h1 className="text-3xl font-bold tracking-wider">Log in</h1>
             </div>
-            <form onSubmit={handleSubmit} className="flex flex-col h-full space-y-6">
+            <form onSubmit={handleSubmit} className="flex flex-col h-full space-y-6 mt-5">
                 <div>
                     <label>User name</label>
-                    <div className="flex justify-between mt-2 bg-[rgba(1,1,1,0.15)] h-10 rounded-lg">
+                    <div className="flex justify-between mt-2 bg-[rgba(255,255,255,0.6)] h-10 rounded-lg items-center pl-2 gap-4">
                         <User />
-                        <input type="text" placeholder="Your login"/>
+                        <input type="text" placeholder="Your login" className="w-full"/>
                     </div>
                 </div>
                 <div>
                     <label>Password</label>
-                    <div className="flex justify-between mt-2 bg-[rgba(1,1,1,0.15)] h-10 rounded-lg">
+                    <div className="flex justify-between mt-2 bg-[rgba(255,255,255,0.6)] h-10 rounded-lg items-center pl-2 gap-4">
                         <Lock />
-                        <input type="password" placeholder="Your password"/>
+                        <input type="password" placeholder="Your password" className="w-full"/>
                     </div>
                 </div>
                 <div>
-                <button type="submit">Enter</button>
+                    <button type="submit" className="w-full rounded-lg text-white bg-black/40 cursor-pointer h-10 mt-5 font-bold hover:bg-black/50 hover:text-white/90">Enter</button>
+                </div>
+                <div className="flex justify-center">
+                    <p>Don't have an account? <Link to="/register" className="font-bold hover:underline">Register</Link></p>
                 </div>
             </form>
         </div>
