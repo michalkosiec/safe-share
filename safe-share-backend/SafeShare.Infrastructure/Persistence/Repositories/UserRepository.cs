@@ -11,6 +11,11 @@ public class UserRepository(AppDbContext dbContext): IUserRepository
         return await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id,  cancellationToken);
     }
 
+    public async Task<User?> GetByUserNameAsync(string userName, CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Users.FirstOrDefaultAsync(x => x.Name == userName, cancellationToken);
+    }
+
     public async Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken)
     {
         return await dbContext.Users.ToListAsync(cancellationToken);

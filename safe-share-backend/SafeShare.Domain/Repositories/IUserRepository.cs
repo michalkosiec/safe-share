@@ -5,6 +5,7 @@ namespace SafeShare.Domain.Repositories;
 public interface IUserRepository
 {
     Task<User?> GetAsync(Guid id, CancellationToken cancellationToken =  default);
+    Task<User?> GetByUserNameAsync(string userName, CancellationToken cancellationToken = default);
     Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken =  default);
     Task CreateAsync(User user, CancellationToken cancellationToken = default);
     Task UpdateAsync(Guid id, User user);
