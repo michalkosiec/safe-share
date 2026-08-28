@@ -10,7 +10,7 @@ interface VantaEffect {
     destroy: () => void;
 }
 
-export default function Register() {
+export default function RegisterView() {
     const vantaRef = useRef<HTMLDivElement>(null);
     const [vantaEffect, setVantaEffect] = useState<VantaEffect | null>(null);
 
@@ -40,7 +40,7 @@ export default function Register() {
         console.log("Register clicked!")
     }
     return <div ref={vantaRef} className="min-h-screen flex justify-center items-center">
-        <div className="flex flex-col w-160 p-6 bg-[rgba(0,0,0,0.6)] rounded-xl backdrop-blur-xl border border-black/10 shadow-2xl text-white">
+        <div className="flex flex-col w-2/5 p-6 bg-[rgba(0,0,0,0.6)] rounded-xl backdrop-blur-xl border border-black/10 shadow-2xl text-white max-w-2xl">
             <div>
                 <h1 className="text-3xl font-bold tracking-wider">Register</h1>
             </div>
