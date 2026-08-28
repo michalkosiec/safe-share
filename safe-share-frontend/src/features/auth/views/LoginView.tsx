@@ -1,49 +1,16 @@
-import {type SubmitEvent, useEffect, useRef, useState} from "react";
-// @ts-expect-error no types for three
-import * as THREE from 'three';
-// @ts-expect-error no types for vanta
-import FOG from 'vanta/src/vanta.fog';
+import {type SubmitEvent} from "react";
 import { User, Lock } from "lucide-react";
 import {Link} from "react-router-dom";
-
-interface VantaEffect {
-    destroy: () => void;
-}
+import AuthCard from "../componenets/AuthCard.tsx";
 
 export default function LoginView() {
-    const vantaRef = useRef<HTMLDivElement>(null);
-    const [vantaEffect, setVantaEffect] = useState<VantaEffect | null>(null);
-
-    useEffect(() => {
-        if (!vantaEffect && vantaRef) {
-            setVantaEffect(FOG({
-                el: vantaRef.current,
-                THREE: THREE,
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                highlightColor: 0xd9c3d5,
-                midtoneColor: 0x6179cc,
-                lowlightColor: 0x437f9d,
-                baseColor: 0xffd8d8
-            }));
-        }
-        return () => {
-            if (vantaEffect)
-                vantaEffect.destroy();
-        }
-    }, [vantaEffect]);
     const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("Login clicked!")
     }
-    return <div ref={vantaRef} className="min-h-screen flex justify-center items-center">
-        <div className="flex flex-col w-2/5 p-6 bg-[rgba(0,0,0,0.6)] rounded-xl backdrop-blur-xl border border-black/10 shadow-2xl text-white max-w-2xl">
-            <div>
-                <h1 className="text-3xl font-bold tracking-wider">Log in</h1>
-            </div>
+
+    return  (
+        <AuthCard title={"Log in"}>
             <form onSubmit={handleSubmit} className="flex flex-col h-full space-y-6 mt-5">
                 <div>
                     <label>User name</label>
@@ -66,6 +33,6 @@ export default function LoginView() {
                     <p>Don't have an account? <Link to="/register" className="font-bold hover:underline">Register</Link></p>
                 </div>
             </form>
-        </div>
-    </div>
+        </AuthCard>
+    )
 }
