@@ -25,10 +25,11 @@ export default function RegisterView() {
         try {
             setIsSubmitting(true);
 
-            // Mocked public key and encrypted private key
-            await register(userName, password, "123456", "123456").catch(console.error);
+            await register(userName, password, "123456", "123456");
             navigate("/login");
-        } catch {
+            alert("User registered successfully!");
+        } catch (error) {
+            console.error("Registration failed", error);
             setError("Cannot register the account");
         } finally {
             setIsSubmitting(false);
