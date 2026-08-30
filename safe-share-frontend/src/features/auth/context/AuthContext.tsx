@@ -1,11 +1,55 @@
-import {createContext} from "react";
+import {createContext, type ReactNode, useEffect, useState} from "react";
+import {AuthService} from "../api/auth.service.ts";
+
+interface User {
+    id: string;
+    name: string;
+}
 
 interface AuthContextType {
-    user: any | null;
+    user: User | null;
     isAuthenticated: boolean;
     isLoading: boolean;
     login: (username: string, password: string) => Promise<void>;
     logout: (username: string) => Promise<void>;
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null)
+/* eslint-disable react-refresh/only-export-components */
+export const AuthContext = createContext<AuthContextType | null>(null);
+
+export const AuthProvider = ({ children }: {children: ReactNode}) => {
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const initAuth = async () => {
+            setIsLoading(false);
+        };
+        initAuth().catch(console.error);
+    }, []);
+
+    const login = async (username: string, password: string) => {
+        setIsLoading(true);
+        try {
+            const userData = await AuthService.login(username, password);
+            setUser(userData);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const logout = async (username: string) => {
+        setIsLoading(true);
+        try {
+            await AuthService.logout(username);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    return (
+        <AuthContext.Provider value={{user, isAuthenticated: !!user, isLoading, login, logout}}>
+            {children}
+        </AuthContext.Provider>
+    )
+}
