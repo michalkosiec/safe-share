@@ -9,9 +9,9 @@ export class AuthService {
 
         const response = await fetch(`${this.API_URL}/auth/login`, request);
 
-        if (!response.ok) {
+        if (!response.ok)
             throw new Error("Failed to login");
-        }
+
 
         return response.json();
     }
@@ -23,6 +23,20 @@ export class AuthService {
             body: JSON.stringify({user})
         };
 
-        await fetch(`${this.API_URL}/auth/logout`, request);
+        const response = await fetch(`${this.API_URL}/auth/logout`, request);
+        if (!response.ok)
+            throw new Error("Failed to logout");
+    }
+
+    static async register (userName: string, password: string, publicKey: string, encryptedPrivateKey: string) {
+        const request = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({userName, password, publicKey, encryptedPrivateKey}),
+        };
+
+        const response = await fetch(`${this.API_URL}/auth/register`, request);
+        if (!response.ok)
+            throw new Error("Failed to register");
     }
 }

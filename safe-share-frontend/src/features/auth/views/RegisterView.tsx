@@ -1,7 +1,8 @@
 import {type FormEvent, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {CheckCircle, Lock, User} from "lucide-react";
 import AuthCard from "../componenets/AuthCard.tsx";
+import {useAuth} from "../hooks/useAuth.ts";
 
 export default function RegisterView() {
     const [userName, setUserName] = useState("");
@@ -9,19 +10,29 @@ export default function RegisterView() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const {register} = useAuth();
+    const navigate = useNavigate();
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
 
         if (password !== confirmPassword) {
-            setError("Passwords do not match.");
+            setError("Passwords do not match");
             return;
         }
 
-        setIsSubmitting(true);
-        console.log("Register clicked!")
-        setIsSubmitting(false);
+        try {
+            setIsSubmitting(true);
+
+            // Mocked public key and encrypted private key
+            await register(userName, password, "123456", "123456").catch(console.error);
+            navigate("/login");
+        } catch {
+            setError("Cannot register the account");
+        } finally {
+            setIsSubmitting(false);
+        }
     }
 
     return  (
