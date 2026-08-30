@@ -136,4 +136,4 @@ docker compose down
 
 ## License
 
-This project does not include a license file yet. Add one if you plan to publish the project.
+This project does not include a license file yet.
