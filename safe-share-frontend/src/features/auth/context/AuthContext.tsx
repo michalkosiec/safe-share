@@ -30,31 +30,17 @@ export const AuthProvider = ({ children }: {children: ReactNode}) => {
     }, []);
 
     const login = async (username: string, password: string) => {
-        setIsLoading(true);
-        try {
-            const userData = await AuthService.login(username, password);
-            setUser(userData);
-        } finally {
-            setIsLoading(false);
-        }
+        const userData = await AuthService.login(username, password);
+        setUser(userData);
     }
 
     const logout = async (username: string) => {
-        setIsLoading(true);
-        try {
-            await AuthService.logout(username);
-        } finally {
-            setIsLoading(false);
-        }
+        await AuthService.logout(username);
+        setUser(null);
     }
 
     const register = async (username: string, password: string, publicKey: string, encryptedPrivateKey: string) => {
-        setIsLoading(true);
-        try {
-            await AuthService.register(username, password, publicKey, encryptedPrivateKey);
-        } finally {
-            setIsLoading(false);
-        }
+        await AuthService.register(username, password, publicKey, encryptedPrivateKey);
     }
 
     return (
