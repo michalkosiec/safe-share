@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SafeShare.Application.Common.Interfaces;
+using SafeShare.Domain.Repositories;
 using SafeShare.Infrastructure.Authentication;
 using SafeShare.Infrastructure.Identity;
 using SafeShare.Infrastructure.Persistence;
@@ -28,7 +29,9 @@ public static class DependencyInjection
         
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         
-        services.AddScoped<SafeShare.Domain.Repositories.IUserRepository, SafeShare.Infrastructure.Persistence.Repositories.UserRepository>();
+        services.AddScoped<IUserRepository, Persistence.Repositories.UserRepository>();
+        
+        services.AddScoped<IGroupRepository, Persistence.Repositories.GroupRepository>();
         
         services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
         
