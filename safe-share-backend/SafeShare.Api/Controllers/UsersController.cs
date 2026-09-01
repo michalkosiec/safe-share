@@ -33,8 +33,7 @@ public class UsersController(IMessageBus bus) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] UserCreateRequest request, CancellationToken cancellationToken)
     {
-        var command = new CreateUserCommand(request.Name, request.Password, request.PublicKey,
-                                           request.EncryptedPrivateKey);
+        var command = new CreateUserCommand(request.Name, request.Password, request.PublicKey, request.EncryptedPrivateKey);
         
         var userResponse = await bus.InvokeAsync<UserResponse>(command, cancellationToken);
         return Created($"/api/users/{request.Name}", userResponse);
