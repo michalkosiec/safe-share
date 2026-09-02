@@ -10,5 +10,6 @@ public class DeleteUserCommandHandler(IUserRepository repo)
             throw new InvalidOperationException($"User with id {command.Id} not found");
         
         await repo.DeleteAsync(command.Id, cancellationToken);
+        await repo.SaveChangesAsync(cancellationToken);
     }
 }
