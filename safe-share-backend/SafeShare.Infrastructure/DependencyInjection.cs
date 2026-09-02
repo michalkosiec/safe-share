@@ -29,6 +29,10 @@ public static class DependencyInjection
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         
         services.AddScoped<SafeShare.Domain.Repositories.IUserRepository, SafeShare.Infrastructure.Persistence.Repositories.UserRepository>();
+
+        services
+            .AddScoped<SafeShare.Domain.Repositories.ISharedFileRepository,
+                SafeShare.Infrastructure.Persistence.Repositories.SharedFileRepository>();
         
         services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
         

@@ -2,7 +2,7 @@ using SafeShare.Application.Common.Interfaces;
 using SafeShare.Domain.Entities;
 using SafeShare.Domain.Repositories;
 
-namespace SafeShare.Application.Features.Files.UploadFile;
+namespace SafeShare.Application.Features.Files.GenerateUploadUrl;
 
 public class GenerateUploadUrlCommandHandler(IFileStorageService fileStorageService, ISharedFileRepository repo)
 {

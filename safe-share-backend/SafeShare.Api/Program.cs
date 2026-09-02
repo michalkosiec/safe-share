@@ -1,7 +1,10 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SafeShare.Api.Services;
+using SafeShare.Application.Common.Interfaces;
 using SafeShare.Infrastructure;
 using SafeShare.Infrastructure.Persistence;
 using SafeShare.Infrastructure.Storage;
@@ -22,12 +25,15 @@ builder.Services.AddOpenApi();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddControllers();
 
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["Secret"];
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.MapInboundClaims = false;
+        
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -53,6 +59,10 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 var app = builder.Build();
 
