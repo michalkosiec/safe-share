@@ -18,7 +18,7 @@ public class UserRepository(AppDbContext dbContext): IUserRepository
 
     public async Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await dbContext.Users.ToListAsync(cancellationToken);
+        return await dbContext.Users.AsNoTracking().ToListAsync(cancellationToken);
     }
 
     public async Task CreateAsync(User user, CancellationToken cancellationToken)
