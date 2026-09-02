@@ -30,6 +30,11 @@ public static class DependencyInjection
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         
         services.AddScoped<IUserRepository, Persistence.Repositories.UserRepository>();
+
+        services
+            .AddScoped<ISharedFileRepository,
+                Persistence.Repositories.SharedFileRepository>();
+        services.AddScoped<IUserRepository, Persistence.Repositories.UserRepository>();
         
         services.AddScoped<IGroupRepository, Persistence.Repositories.GroupRepository>();
         

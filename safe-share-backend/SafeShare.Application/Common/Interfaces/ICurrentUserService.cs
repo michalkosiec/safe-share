@@ -1,8 +1,8 @@
 namespace SafeShare.Application.Common.Interfaces;
 
-public class ICurrentUserService
+public interface ICurrentUserService
 {
-    public Guid? UserId { get; }
-    public string? Username { get; }
+    public Guid UserId { get; }
+    public string Username { get; }
     public bool IsAuthenticated { get; }
 }

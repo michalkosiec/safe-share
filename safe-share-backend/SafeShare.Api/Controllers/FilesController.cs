@@ -1,19 +1,22 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SafeShare.Application.Common.Interfaces;
 using SafeShare.Application.Features.Files.GenerateDownloadUrl;
-using SafeShare.Application.Features.Files.UploadFile;
+using SafeShare.Application.Features.Files.GenerateUploadUrl;
 using Wolverine;
 
 namespace SafeShare.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("/api/files")]
-public class FilesController(IMessageBus bus): ControllerBase
+public class FilesController(IMessageBus bus, ICurrentUserService currentUserService): ControllerBase
 {
     [HttpPost("upload-url")]
     public async Task<IActionResult> GenerateUploadUrl([FromBody] GenerateUploadUrlRequest request, CancellationToken cancellationToken)
     {
-        // Mock OwnerId
-        Guid ownerId = Guid.NewGuid();
+        
+        var ownerId = currentUserService.UserId;
 
         var command = new GenerateUploadUrlCommand(request.FileName, request.ContentType, ownerId);
 
@@ -25,8 +28,7 @@ public class FilesController(IMessageBus bus): ControllerBase
     [HttpGet("{fileId:Guid}/download-url")]
     public async Task<IActionResult> GenerateDownloadUrl([FromRoute] Guid fileId, CancellationToken cancellationToken)
     {
-        // Mock OwnerId
-        Guid ownerId = Guid.NewGuid();
+        var ownerId = currentUserService.UserId;
         
         var command = new GenerateDownloadUrlCommand(fileId, ownerId);
         var downloadUrl = await bus.InvokeAsync<string>(command, cancellationToken);
