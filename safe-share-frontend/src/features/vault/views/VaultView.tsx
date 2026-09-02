@@ -3,8 +3,8 @@ import Sidebar from "../components/Sidebar.tsx";
 
 export default function VaultView() {
     return (
-        <main className="p-6 md:p-8 h-full w-full overflow-y-auto">
-            <div className="grid grid-cols-[300px_1fr] gap-6 h-full">
+        <main className="p-6 pl-0 md:p-8 md:pl-0 h-full w-full overflow-y-auto">
+            <div className="grid grid-cols-[280px_1fr] gap-6 h-full">
                 <Sidebar />
                 <div className="grid grid-cols-12 gap-4 bg-gray-700 rounded-2xl">
 
