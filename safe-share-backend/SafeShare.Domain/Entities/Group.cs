@@ -10,12 +10,12 @@ public class Group
     
     private Group() {}
 
-    public Group(string name, User createdByUser)
+    public Group(string name, Guid ownerId)
     {
         Id = Guid.NewGuid();
         Name = name;
-        OwnerId = createdByUser.Id;
-        _users.Add(new GroupUser(Id, createdByUser.Id));
+        OwnerId = ownerId;
+        _users.Add(new GroupUser(Id, ownerId));
     }
 
     public void ChangeOwnership(Guid ownerId)
@@ -23,18 +23,18 @@ public class Group
         OwnerId = ownerId;
     }
 
-    public void AddUser(User user)
+    public void AddUser(Guid userId)
     {
-        var groupUser = new GroupUser(Id, user.Id);
+        var groupUser = new GroupUser(Id, userId);
         _users.Add(groupUser);
     }
 
-    public void RemoveUser(User user)
+    public void RemoveUser(Guid userId)
     {
-        var userToRemove = _users.FirstOrDefault(gu => gu.UserId == user.Id);
+        var userToRemove = _users.FirstOrDefault(gu => gu.UserId == userId);
         
         if (userToRemove == null)
-            throw new InvalidOperationException($"User with id {user.Id} does not exist.");
+            throw new InvalidOperationException($"User with id {userId} does not exist.");
         
         _users.Remove(userToRemove);
     }
