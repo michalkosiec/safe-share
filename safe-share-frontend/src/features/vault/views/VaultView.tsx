@@ -1,18 +1,13 @@
 import DashboardCard from "../components/DashboardCard.tsx";
 import Sidebar from "../components/Sidebar.tsx";
+import FileUploadZone from "../components/FileUploadZone.tsx";
 
 export default function VaultView() {
     return (
-        <main className="p-6 pl-0 md:p-8 md:pl-0 h-full w-full overflow-y-auto">
-            <div className="grid grid-cols-[280px_1fr] gap-6 h-full">
+        <main className="p-6 pl-0 md:p-5 md:pl-0 h-full w-full overflow-y-auto">
+            <div className="grid grid-cols-[280px_1fr] gap-4 h-full">
                 <Sidebar />
-                <div className="grid grid-cols-12 gap-4 bg-gray-700 rounded-2xl">
-
-                    <header className="col-span-12 mb-2 p-6">
-                        <h1 className="text-3xl font-bold text-white">Your Safe</h1>
-                        <p className="text-gray-100 mt-1">Manage your encrypted files and access keys</p>
-                    </header>
-
+                <main className="grid grid-cols-12 gap-2 rounded-2xl">
                     <DashboardCard className="col-span-12 md:col-span-4">
                         <h2 className="text-sm font-medium text-gray-100">All of the files</h2>
                         <p className="text-3xl font-bold text-white mt-2">0</p>
@@ -32,10 +27,7 @@ export default function VaultView() {
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-xl font-semibold text-white">Your files</h2>
                         </div>
-
-                        <div className="flex flex-col items-center justify-center h-64 text-gray-100 border-2 border-dashed border-white/10 rounded-xl">
-                            <p>No files yet. Upload something to get started</p>
-                        </div>
+                        <FileUploadZone />
                     </DashboardCard>
 
                     <DashboardCard className="col-span-12 lg:col-span-4">
@@ -45,7 +37,7 @@ export default function VaultView() {
                             <p className="text-sm text-gray-100 italic">No new events</p>
                         </div>
                     </DashboardCard>
-                </div>
+                </main>
             </div>
         </main>
     );

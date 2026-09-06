@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Sidebar() {
     return (
-        <aside className="bg-black/85 rounded-2xl border border-white/10 p-5 shadow-lg backdrop-blur-sm flex flex-col h-full">
+        <aside className="bg-[rgb(28,28,28)] rounded-2xl border border-white/10 p-5 shadow-lg backdrop-blur-sm flex flex-col h-full">
             <div className="flex items-center gap-3 px-2 mb-6 mt-2">
                 <span className="text-xl font-bold text-white tracking-wider">SafeShare</span>
             </div>
