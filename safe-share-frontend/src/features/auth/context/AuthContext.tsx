@@ -24,19 +24,35 @@ export const AuthProvider = ({ children }: {children: ReactNode}) => {
 
     useEffect(() => {
         const initAuth = async () => {
+            const token = localStorage.getItem("token");
+            if (token) {
+                try {
+                    const response = await AuthService.me();
+                    if (response) {
+                        setUser({id: response.userId, name: response.username});
+                    }
+                } catch {
+                    localStorage.removeItem("token");
+                }
+            }
             setIsLoading(false);
         };
         initAuth().catch(console.error);
     }, []);
 
     const login = async (username: string, password: string) => {
-        const userData = await AuthService.login(username, password);
-        setUser(userData);
+        const response = await AuthService.login(username, password);
+        if (response?.token) {
+            localStorage.setItem('token', response.token);
+            setUser({id: response.userId, name: response.username});
+        }
+
     }
 
     const logout = async (username: string) => {
         await AuthService.logout(username);
         setUser(null);
+        localStorage.removeItem('token');
     }
 
     const register = async (username: string, password: string, publicKey: string, encryptedPrivateKey: string) => {

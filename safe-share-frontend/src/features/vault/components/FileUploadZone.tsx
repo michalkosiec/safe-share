@@ -10,6 +10,7 @@ export default function FileUploadZone() {
         console.log("Process and upload file: ", file);
         setUploading(false);
     }
+
     const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         setUploading(true);
