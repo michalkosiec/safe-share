@@ -1,6 +1,3 @@
 namespace SafeShare.Application.Features.Auth.DTOs;
 
-public class LoginResponse
-{
-    
-}
+public record LoginResponse(string Token, string Username, Guid UserId);
