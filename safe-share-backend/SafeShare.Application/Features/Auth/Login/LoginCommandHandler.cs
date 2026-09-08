@@ -1,4 +1,3 @@
-using System.Globalization;
 using SafeShare.Application.Common.Interfaces;
 using SafeShare.Application.Features.Auth.DTOs;
 using SafeShare.Domain.Repositories;

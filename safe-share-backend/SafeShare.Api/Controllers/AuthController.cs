@@ -32,7 +32,7 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Secure = true,
+            Secure = Request.IsHttps,
             SameSite = SameSiteMode.Strict,
             Expires = DateTime.UtcNow.AddHours(2)
         };
@@ -59,7 +59,7 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Secure = true,
+            Secure = Request.IsHttps,
             SameSite = SameSiteMode.Strict
         };
         
