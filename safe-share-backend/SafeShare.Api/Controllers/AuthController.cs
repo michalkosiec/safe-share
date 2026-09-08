@@ -34,6 +34,7 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
             HttpOnly = true,
             Secure = Request.IsHttps,
             SameSite = SameSiteMode.Strict,
+            Path = "/",
             Expires = DateTime.UtcNow.AddHours(2)
         };
         
@@ -60,11 +61,12 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
         {
             HttpOnly = true,
             Secure = Request.IsHttps,
-            SameSite = SameSiteMode.Strict
+            SameSite = SameSiteMode.Strict,
+            Path = "/"
         };
         
         Response.Cookies.Delete("jwt_token", cookieOptions);
-        return Ok();
+        return NoContent();
     }
 }
 
