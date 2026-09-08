@@ -18,10 +18,8 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
     {
         var userId = currentUserService.UserId;
         var username = currentUserService.Username;
-        if (string.IsNullOrEmpty(username) || userId == Guid.Empty || userId == null)
-            return Unauthorized("No valid claims in the token.");
         
-        var currentUserResponse = new CurrentUserResponse(userId.Value, username);
+        var currentUserResponse = new CurrentUserResponse(userId, username);
         return Ok(currentUserResponse);
     }
     
@@ -30,7 +28,19 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
     {
         var command = new LoginCommand(request.Username, request.Password);
         var response = await bus.InvokeAsync<LoginResponse>(command, cancellationToken);
-        return Ok(response);
+
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddHours(2)
+        };
+        
+        Response.Cookies.Append("jwt_token", response.token, cookieOptions);
+        
+        var currentUserResponse = new CurrentUserResponse(response.UserId, response.Username);
+        return Ok(currentUserResponse);
     }
 
     [HttpPost("register")]
@@ -39,6 +49,21 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
         var command =
             new RegisterCommand( request.Username, request.Password, request.PublicKey, request.EncryptedPrivateKey);
         await bus.InvokeAsync(command, cancellationToken);
+        return Ok();
+    }
+
+    [HttpPost("logout")]
+    public IActionResult Logout()
+    {
+
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict
+        };
+        
+        Response.Cookies.Delete("jwt_token", cookieOptions);
         return Ok();
     }
 }

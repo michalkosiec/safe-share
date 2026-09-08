@@ -2,7 +2,7 @@ import client from "../../../api/client.ts";
 import {endpoints} from "../../../api/endpoints.ts";
 
 interface CurrentUserResponse { userId: string, username: string }
-interface LoginResponse { token: string, username: string, userId: string }
+interface LoginResponse { username: string, userId: string }
 
 export class AuthService {
     static async me() {
@@ -12,8 +12,8 @@ export class AuthService {
         return client<LoginResponse>(endpoints.auth.login, {method: 'POST', body: JSON.stringify({username, password})});
     }
 
-    static async logout(user: string) {
-        return client<void>(endpoints.auth.logout, {method: 'POST', body: JSON.stringify({user})});
+    static async logout() {
+        return client<void>(endpoints.auth.logout, {method: 'POST'});
     }
 
     static async register(username: string, password: string, publicKey: string, encryptedPrivateKey: string) {

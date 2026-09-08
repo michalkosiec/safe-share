@@ -11,7 +11,7 @@ interface AuthContextType {
     isAuthenticated: boolean;
     isLoading: boolean;
     login: (username: string, password: string) => Promise<void>;
-    logout: (username: string) => Promise<void>;
+    logout: () => Promise<void>;
     register: (username: string, password: string, publicKey: string, encryptedPrivateKey: string) => Promise<void>;
 }
 
@@ -24,16 +24,13 @@ export const AuthProvider = ({ children }: {children: ReactNode}) => {
 
     useEffect(() => {
         const initAuth = async () => {
-            const token = localStorage.getItem("token");
-            if (token) {
-                try {
-                    const response = await AuthService.me();
-                    if (response) {
-                        setUser({id: response.userId, name: response.username});
-                    }
-                } catch {
-                    localStorage.removeItem("token");
+            try {
+                const response = await AuthService.me();
+                if (response) {
+                    setUser({id: response.userId, name: response.username});
                 }
+            } catch {
+                setUser(null);
             }
             setIsLoading(false);
         };
@@ -42,17 +39,14 @@ export const AuthProvider = ({ children }: {children: ReactNode}) => {
 
     const login = async (username: string, password: string) => {
         const response = await AuthService.login(username, password);
-        if (response?.token) {
-            localStorage.setItem('token', response.token);
+        if (response) {
             setUser({id: response.userId, name: response.username});
         }
-
     }
 
-    const logout = async (username: string) => {
-        await AuthService.logout(username);
+    const logout = async () => {
+        await AuthService.logout();
         setUser(null);
-        localStorage.removeItem('token');
     }
 
     const register = async (username: string, password: string, publicKey: string, encryptedPrivateKey: string) => {

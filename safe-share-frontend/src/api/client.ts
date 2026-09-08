@@ -5,12 +5,12 @@ export default async function client<T>(url: string, options: RequestInit = {}):
         headers.set("Content-Type", "application/json");
     }
 
-    const token = localStorage.getItem("token");
-    if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
+    const fetchOptions: RequestInit = {
+        ...options,
+        headers,
+        credentials: "include",
     }
-
-    const response = await fetch(url, {...options, headers});
+    const response = await fetch(url, fetchOptions);
     if (!response.ok) {
         if (response.status === 401) {
             console.error("Session expired or unauthorized.");
