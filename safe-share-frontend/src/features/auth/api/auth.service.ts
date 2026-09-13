@@ -6,8 +6,9 @@ interface LoginResponse { username: string, userId: string }
 
 export class AuthService {
     static async me() {
-        return client<CurrentUserResponse>(endpoints.auth.me, {method: "GET"});
+        return client<CurrentUserResponse>(endpoints.auth.me, {method: 'GET'});
     }
+
     static async login(username: string, password: string) {
         return client<LoginResponse>(endpoints.auth.login, {method: 'POST', body: JSON.stringify({username, password})});
     }

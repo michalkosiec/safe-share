@@ -33,13 +33,13 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
         {
             HttpOnly = true,
             Secure = Request.IsHttps,
-            SameSite = SameSiteMode.Strict,
+            SameSite = SameSiteMode.Lax,
             Path = "/",
-            Expires = DateTime.UtcNow.AddHours(2)
+            IsEssential = true
         };
-        
+
         Response.Cookies.Append("jwt_token", response.token, cookieOptions);
-        
+
         var currentUserResponse = new CurrentUserResponse(response.UserId, response.Username);
         return Ok(currentUserResponse);
     }
@@ -56,15 +56,15 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
     [HttpPost("logout")]
     public IActionResult Logout()
     {
-
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
             Secure = Request.IsHttps,
-            SameSite = SameSiteMode.Strict,
-            Path = "/"
+            SameSite = SameSiteMode.Lax,
+            Path = "/",
+            Expires = DateTime.UnixEpoch
         };
-        
+
         Response.Cookies.Delete("jwt_token", cookieOptions);
         return NoContent();
     }

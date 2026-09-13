@@ -8,7 +8,9 @@ export const endpoints = {
         logout: `${API_URL}/auth/logout`,
     },
     files: {
-        downloadUrl: `${API_URL}/files/download-url`,
+        downloadUrl(fileId: string) {
+            return `${API_URL}/files/${fileId}/download-url`;
+    },
         uploadUrl: `${API_URL}/files/upload-url`,
     }
 }
