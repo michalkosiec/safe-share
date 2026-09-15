@@ -2,6 +2,12 @@ import { Folder, Settings, Shield, User, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
+    const {logout} = useAuth();
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+        await logout();
+        navigate("/login");
+    }
     return (
         <aside className="bg-black/85 rounded-2xl border border-white/10 p-5 shadow-lg backdrop-blur-sm flex flex-col h-full">
             <div className="flex items-center gap-3 px-2 mb-6 mt-2">
@@ -34,6 +40,13 @@ export default function Sidebar() {
                 <Link to="/user" className="hover:opacity-75 transition-all duration-200 hover:scale-110">
                     <User className="w-7 h-7 text-white" />
                 </Link>
+                <button
+                    onClick={handleLogout}
+                    className="hover:opacity-75 transition-all duration-200 hover:scale-110 ml-auto text-red-400 hover:text-red-300"
+                    title="Log out"
+                >
+                    <LogOut className="w-7 h-7" />
+                </button>
             </nav>
         </aside>
     )

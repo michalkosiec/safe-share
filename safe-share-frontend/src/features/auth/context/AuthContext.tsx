@@ -11,7 +11,7 @@ interface AuthContextType {
     isAuthenticated: boolean;
     isLoading: boolean;
     login: (username: string, password: string) => Promise<void>;
-    logout: (username: string) => Promise<void>;
+    logout: () => Promise<void>;
     register: (username: string, password: string, publicKey: string, encryptedPrivateKey: string) => Promise<void>;
 }
 
@@ -24,18 +24,28 @@ export const AuthProvider = ({ children }: {children: ReactNode}) => {
 
     useEffect(() => {
         const initAuth = async () => {
+            try {
+                const response = await AuthService.me();
+                if (response) {
+                    setUser({id: response.userId, name: response.username});
+                }
+            } catch {
+                setUser(null);
+            }
             setIsLoading(false);
         };
         initAuth().catch(console.error);
     }, []);
 
     const login = async (username: string, password: string) => {
-        const userData = await AuthService.login(username, password);
-        setUser(userData);
+        const response = await AuthService.login(username, password);
+        if (response) {
+            setUser({id: response.userId, name: response.username});
+        }
     }
 
-    const logout = async (username: string) => {
-        await AuthService.logout(username);
+    const logout = async () => {
+        await AuthService.logout();
         setUser(null);
     }
 

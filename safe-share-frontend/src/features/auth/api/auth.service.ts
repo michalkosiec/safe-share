@@ -1,42 +1,23 @@
+import client from "../../../api/client.ts";
+import {endpoints} from "../../../api/endpoints.ts";
+
+interface CurrentUserResponse { userId: string, username: string }
+interface LoginResponse { username: string, userId: string }
+
 export class AuthService {
-    private static API_URL = import.meta.env.VITE_API_URL;
-    static async login (userName: string, password: string) {
-        const request = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({userName, password}),
-        }
-
-        const response = await fetch(`${this.API_URL}/auth/login`, request);
-
-        if (!response.ok)
-            throw new Error("Failed to login");
-
-
-        return response.json();
+    static async me() {
+        return client<CurrentUserResponse>(endpoints.auth.me, {method: 'GET'});
     }
 
-    static async logout (user: string) {
-        const request = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({user})
-        };
-
-        const response = await fetch(`${this.API_URL}/auth/logout`, request);
-        if (!response.ok)
-            throw new Error("Failed to logout");
+    static async login(username: string, password: string) {
+        return client<LoginResponse>(endpoints.auth.login, {method: 'POST', body: JSON.stringify({username, password})});
     }
 
-    static async register (userName: string, password: string, publicKey: string, encryptedPrivateKey: string) {
-        const request = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({userName, password, publicKey, encryptedPrivateKey}),
-        };
+    static async logout() {
+        return client<void>(endpoints.auth.logout, {method: 'POST'});
+    }
 
-        const response = await fetch(`${this.API_URL}/auth/register`, request);
-        if (!response.ok)
-            throw new Error("Failed to register");
+    static async register(username: string, password: string, publicKey: string, encryptedPrivateKey: string) {
+        return client<void>(endpoints.auth.register, {method: 'POST', body: JSON.stringify({username, password, publicKey, encryptedPrivateKey})});
     }
 }
