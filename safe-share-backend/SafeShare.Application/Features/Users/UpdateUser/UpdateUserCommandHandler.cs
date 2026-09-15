@@ -11,7 +11,8 @@ public class UpdateUserCommandHandler(IUserRepository repo)
         if (user == null)
             throw new InvalidOperationException("User not found");
         
-        await repo.UpdateAsync(command.Id, user);
+        user.UpdateUser(command.Name, command.PublicKey, command.EncryptedPrivateKey);
+        await repo.SaveChangesAsync(cancellationToken);
 
         return new UserResponse(user.Id, user.Name, user.PublicKey, user.EncryptedPrivateKey);
     }

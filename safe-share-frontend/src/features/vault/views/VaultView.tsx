@@ -4,8 +4,8 @@ import FileUploadZone from "../components/FileUploadZone.tsx";
 
 export default function VaultView() {
     return (
-        <main className="p-6 pl-0 md:p-5 md:pl-0 h-full w-full overflow-y-auto">
-            <div className="grid grid-cols-[280px_1fr] gap-4 h-full">
+        <main className="p-6 pl-0 md:p-8 md:pl-0 h-full w-full overflow-y-auto">
+            <div className="grid grid-cols-[280px_1fr] gap-6 h-full">
                 <Sidebar />
                 <main className="grid grid-cols-12 gap-2 rounded-2xl">
                     <DashboardCard className="col-span-12 md:col-span-4">
