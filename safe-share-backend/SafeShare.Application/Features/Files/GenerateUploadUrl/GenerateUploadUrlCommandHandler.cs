@@ -12,6 +12,10 @@ public class GenerateUploadUrlCommandHandler(IFileStorageService fileStorageServ
         await repo.CreateAsync(fileRecord, cancellationToken);
         await repo.SaveChangesAsync(cancellationToken);
 
-        return await fileStorageService.GenerateUploadSignedUrlAsync(fileRecord.Id.ToString(), TimeSpan.FromMinutes(15), cancellationToken);
+        return await fileStorageService.GenerateUploadSignedUrlAsync(
+            fileRecord.Id.ToString(),
+            command.ContentType,
+            TimeSpan.FromMinutes(15),
+            cancellationToken);
     }
 }

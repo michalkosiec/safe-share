@@ -10,6 +10,10 @@
 # dotenv files
 .env
 
+# Local MinIO TLS certificates
+minio/certs/*
+!minio/certs/.gitkeep
+
 # User-specific files
 *.rsuser
 *.suo

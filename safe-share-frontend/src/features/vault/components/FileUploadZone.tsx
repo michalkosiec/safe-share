@@ -1,20 +1,27 @@
 import {type ChangeEvent, type DragEvent, useState} from "react";
 import {UploadCloud} from "lucide-react";
+import {useFileUpload} from "../hooks/useFileUpload.ts";
 
 export default function FileUploadZone() {
-    const [uploading, setUploading] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
+    const {uploadFile, isUploading} = useFileUpload();
 
     const processAndUploadFile = async (file: File) => {
-        setUploading(true);
-        console.log("Process and upload file: ", file);
-        setUploading(false);
+        try {
+            await uploadFile(file);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setUploading(true);
-        setUploading(false);
+
+        const file = e.target.files?.[0];
+        if (file) {
+            processAndUploadFile(file).catch(console.error);
+        }
+        e.target.value = '';
     }
 
     const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
@@ -43,10 +50,10 @@ export default function FileUploadZone() {
         }`}>
             <UploadCloud className={`w-11 h-11 mb-3 ${isDragging ? "text-blue-400 scale-125" : "text-blue-400 animate-bounce"}`}/>
             <p className="text-lg font-medium text-white">
-                {uploading ? "Uploading file..." : isDragging ? "Drop your file here..." : "Click to upload or drag and drop"}
+                {isUploading ? "Uploading file..." : isDragging ? "Drop your file here..." : "Click to upload or drag and drop"}
             </p>
             <p className="text-sm text-gray-100 mt-1">Any encrypted file up to 500MB</p>
-            <input type="file" className="hidden" onChange={handleUpload} disabled={uploading}/>
+            <input type="file" className="hidden" onChange={handleUpload} disabled={isUploading}/>
         </label>
     );
 }

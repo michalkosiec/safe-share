@@ -10,13 +10,18 @@ namespace SafeShare.Infrastructure.Storage;
 public class S3FileStorageService([FromKeyedServices(S3ClientKeys.Internal)] IAmazonS3 s3Client, [FromKeyedServices(S3ClientKeys.Presign)] IAmazonS3 presignClient, IOptions<S3StorageOptions> options) :  IFileStorageService
 {
     private readonly string _bucketName = options.Value.BucketName;
-    public Task<string> GenerateUploadSignedUrlAsync(string fileId, TimeSpan expiresIn, CancellationToken cancellationToken)
+    public Task<string> GenerateUploadSignedUrlAsync(
+        string fileId,
+        string contentType,
+        TimeSpan expiresIn,
+        CancellationToken cancellationToken)
     {
         var request = new GetPreSignedUrlRequest
         {
             BucketName = _bucketName,
             Key = fileId,
             Verb = HttpVerb.PUT,
+            ContentType = contentType,
             Expires = DateTime.UtcNow.Add(expiresIn)
         };
         
