@@ -9,7 +9,7 @@ public interface IFileStorageService
     /// <param name="expiresIn">The duration for which the generated link will remain valid.</param>
     /// <param name="cancellationToken">A token to observe for cancellation requests.</param>
     /// <returns>A pre-signed URL as a string.</returns>
-    Task<string> GenerateUploadSignedUrlAsync(string fileId, TimeSpan expiresIn, CancellationToken cancellationToken);
+    Task<string> GenerateUploadSignedUrlAsync(string fileId, string contentType, TimeSpan expiresIn, CancellationToken cancellationToken);
     
     /// <summary>
     /// Generates a temporary link (GET) which can be used to securely download the file.

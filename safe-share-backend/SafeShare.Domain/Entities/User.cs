@@ -18,5 +18,13 @@ namespace SafeShare.Domain.Entities
             PublicKey = publicKey;
             EncryptedPrivateKey = encryptedPrivateKey;
         }
+
+        public void UpdateUser(string name, string publicKey, string encryptedPrivateKey)
+        {
+            Name = name;
+            PublicKey = publicKey;
+            EncryptedPrivateKey = encryptedPrivateKey;
+        }
+        //probably add ChangeUserPassword later.
     }
 }

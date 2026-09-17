@@ -1,23 +1,31 @@
 using Amazon.S3;
 using Amazon.S3.Model;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using SafeShare.Application.Common.Interfaces;
 
 namespace SafeShare.Infrastructure.Storage;
 
-public class S3FileStorageService(IAmazonS3 s3client) :  IFileStorageService
+public class S3FileStorageService([FromKeyedServices(S3ClientKeys.Internal)] IAmazonS3 s3Client, [FromKeyedServices(S3ClientKeys.Presign)] IAmazonS3 presignClient, IOptions<S3StorageOptions> options) :  IFileStorageService
 {
-    private readonly string _bucketName = "safeshare-files";
-    public Task<string> GenerateUploadSignedUrlAsync(string fileId, TimeSpan expiresIn, CancellationToken cancellationToken)
+    private readonly string _bucketName = options.Value.BucketName;
+    public Task<string> GenerateUploadSignedUrlAsync(
+        string fileId,
+        string contentType,
+        TimeSpan expiresIn,
+        CancellationToken cancellationToken)
     {
         var request = new GetPreSignedUrlRequest
         {
             BucketName = _bucketName,
             Key = fileId,
             Verb = HttpVerb.PUT,
-            Expires = DateTime.Now.Add(expiresIn)
+            ContentType = contentType,
+            Expires = DateTime.UtcNow.Add(expiresIn)
         };
         
-        var url =  s3client.GetPreSignedURL(request);
+        var url =  presignClient.GetPreSignedURL(request);
         return Task.FromResult(url);
     }
 
@@ -28,10 +36,10 @@ public class S3FileStorageService(IAmazonS3 s3client) :  IFileStorageService
             BucketName = _bucketName,
             Key = fileId,
             Verb = HttpVerb.GET,
-            Expires = DateTime.Now.Add(expiresIn)
+            Expires = DateTime.UtcNow.Add(expiresIn)
         };
         
-        var url =  s3client.GetPreSignedURL(request);
+        var url =  presignClient.GetPreSignedURL(request);
         return Task.FromResult(url);
     }
 
@@ -43,6 +51,6 @@ public class S3FileStorageService(IAmazonS3 s3client) :  IFileStorageService
             Key = fileId,
         };
         
-        await s3client.DeleteObjectAsync(request, cancellationToken);
+        await s3Client.DeleteObjectAsync(request, cancellationToken);
     }
 }

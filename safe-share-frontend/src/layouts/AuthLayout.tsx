@@ -9,7 +9,7 @@ interface VantaEffect {
     destroy: () => void;
 }
 
-export default function LoginView() {
+export default function AuthLayout() {
     const vantaRef = useRef<HTMLDivElement>(null);
     const [vantaEffect, setVantaEffect] = useState<VantaEffect | null>(null);
 
