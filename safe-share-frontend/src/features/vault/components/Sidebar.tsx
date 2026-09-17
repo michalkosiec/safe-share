@@ -1,5 +1,6 @@
-import { Folder, Settings, Shield, User, Users } from "lucide-react";
-import { Link } from "react-router-dom";
+import {Folder, LogOut, Settings, Shield, User, Users} from "lucide-react";
+import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "../../auth/hooks/useAuth.ts";
 
 export default function Sidebar() {
     const {logout} = useAuth();
