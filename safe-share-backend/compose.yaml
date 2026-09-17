@@ -44,8 +44,6 @@
     volumes:
       - minio_data:/data
       
-    
-
 volumes:
   postgres_data:
   minio_data:
