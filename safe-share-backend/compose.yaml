@@ -50,7 +50,6 @@
     volumes:
       - minio_data:/data
       - ./minio/certs:/root/.minio/certs:ro
-
 volumes:
   postgres_data:
   minio_data:
