@@ -8,12 +8,12 @@ public class CreateGroupCommandHandler(IGroupRepository repo)
 {
     public async Task<GroupResponse> HandleAsync(CreateGroupCommand command, CancellationToken cancellationToken) //make it return GroupResponse
     {
-        var group = new Group(command.Name, command.OwnerId);
+        var group = new Group(command.Name, command.UserId);
         
         await repo.CreateAsync(group, cancellationToken);
         await repo.SaveChangesAsync(cancellationToken);
         
-        var createdGroup = await repo.GetAsync(group.Id, cancellationToken);
+        var createdGroup = await repo.GetAsync(group.Id, command.UserId, cancellationToken);
         if (createdGroup == null)
             throw new InvalidOperationException("Group not created");
         

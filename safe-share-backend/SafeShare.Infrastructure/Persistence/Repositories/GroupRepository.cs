@@ -6,14 +6,14 @@ namespace SafeShare.Infrastructure.Persistence.Repositories;
 
 public class GroupRepository(AppDbContext dbContext): IGroupRepository
 {
-    public async Task<Group?> GetAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<Group?> GetAsync(Guid id, Guid userId, CancellationToken cancellationToken)
     {
-        return await dbContext.Groups.FirstOrDefaultAsync(x => x.Id == id,  cancellationToken);
+        return await dbContext.Groups.FirstOrDefaultAsync(x => x.Id == id && x.OwnerId == userId, cancellationToken);
     }
 
-    public async Task<IEnumerable<Group>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<Group>> GetAllAsync(Guid userId, CancellationToken cancellationToken)
     {
-        return await dbContext.Groups.ToListAsync(cancellationToken);
+        return await dbContext.Groups.Where(x => x.OwnerId == userId).ToListAsync(cancellationToken);
     }
 
     public async Task CreateAsync(Group group, CancellationToken cancellationToken)
@@ -21,15 +21,17 @@ public class GroupRepository(AppDbContext dbContext): IGroupRepository
         await dbContext.Groups.AddAsync(group, cancellationToken);
     }
 
-    public Task UpdateAsync(Guid id, Group group)
+    public Task UpdateAsync(Guid id, Guid userId, Group group)
     {
+        if(group.OwnerId != userId)
+            throw new UnauthorizedAccessException("You cannot update a group that is not the owner of this group");
         dbContext.Groups.Update(group);
         return Task.CompletedTask;
     }
 
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task DeleteAsync(Guid id, Guid userId, CancellationToken cancellationToken)
     {
-        var group = await GetAsync(id, cancellationToken);
+        var group = await GetAsync(id, userId, cancellationToken);
         if  (group == null)
             throw new KeyNotFoundException($"Group with id {id} not found");
         

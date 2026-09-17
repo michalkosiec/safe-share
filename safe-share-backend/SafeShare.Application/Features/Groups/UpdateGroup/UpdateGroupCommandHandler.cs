@@ -7,11 +7,11 @@ public class UpdateGroupCommandHandler(IGroupRepository repo)
 {
     public async Task<GroupResponse> Handle(UpdateGroupCommand command, CancellationToken cancellationToken)
     {
-        var group = await repo.GetAsync(command.Id, cancellationToken);
+        var group = await repo.GetAsync(command.Id, command.UserId, cancellationToken);
         if (group == null)
             throw new InvalidOperationException("Group not found");
 
-        await repo.UpdateAsync(command.Id, group);
+        await repo.UpdateAsync(command.Id, command.UserId, group);
         await repo.SaveChangesAsync(cancellationToken);
         return new GroupResponse(group.Id, group.Name, group.OwnerId);
     }

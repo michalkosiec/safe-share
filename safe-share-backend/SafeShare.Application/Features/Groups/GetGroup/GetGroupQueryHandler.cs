@@ -7,7 +7,7 @@ public class GetGroupQueryHandler(IGroupRepository repo)
 {
     public async Task<GroupResponse> HandleAsync(GetGroupQuery query, CancellationToken cancellationToken)
     {
-        var group = await repo.GetAsync(query.Id, cancellationToken);
+        var group = await repo.GetAsync(query.Id, query.UserId, cancellationToken);
         return group == null
             ? throw new InvalidOperationException($"Group with id {query.Id} not found.")
             : new GroupResponse(group.Id, group.Name, group.OwnerId);

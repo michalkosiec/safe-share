@@ -1,3 +1,3 @@
 namespace SafeShare.Application.Features.Groups.DeleteGroup;
 
-public record DeleteGroupCommand(Guid Id);
+public record DeleteGroupCommand(Guid Id, Guid UserId);

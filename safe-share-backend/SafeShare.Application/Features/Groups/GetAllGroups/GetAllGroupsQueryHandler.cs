@@ -8,7 +8,7 @@ public class GetAllGroupsHandler(IGroupRepository repo)
     public async Task<IEnumerable<GroupResponse>> HandleAsync(GetAllGroupsQuery query,
         CancellationToken cancellationToken)
     {
-        var groups = await repo.GetAllAsync(cancellationToken);
+        var groups = await repo.GetAllAsync(query.UserId, cancellationToken);
         return groups.Select(x => new GroupResponse(x.Id, x.Name, x.OwnerId));
     }
 }

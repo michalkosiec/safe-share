@@ -1,3 +1,3 @@
 namespace SafeShare.Application.Features.Groups.GetAllGroups;
 
-public record GetAllGroupsQuery();
+public record GetAllGroupsQuery(Guid UserId);

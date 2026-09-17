@@ -4,10 +4,10 @@ namespace SafeShare.Domain.Repositories;
 
 public interface IGroupRepository
 {
-    Task<Group?> GetAsync(Guid id, CancellationToken cancellationToken = default);
-    Task<IEnumerable<Group>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<Group?> GetAsync(Guid id, Guid userId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Group>> GetAllAsync(Guid userId, CancellationToken cancellationToken = default);
     Task CreateAsync(Group group, CancellationToken cancellationToken = default);
-    Task UpdateAsync(Guid id, Group group);
-    Task DeleteAsync(Guid id,  CancellationToken cancellationToken = default);
+    Task UpdateAsync(Guid id, Guid userId, Group group);
+    Task DeleteAsync(Guid id, Guid userId, CancellationToken cancellationToken = default);
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }
