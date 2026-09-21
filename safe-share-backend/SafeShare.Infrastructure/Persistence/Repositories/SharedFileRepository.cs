@@ -6,14 +6,14 @@ namespace SafeShare.Infrastructure.Persistence.Repositories;
 
 public class SharedFileRepository(AppDbContext dbContext): ISharedFileRepository
 {
-    public async Task<SharedFile?> GetAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<SharedFile?> GetAsync(Guid id, Guid userId, CancellationToken cancellationToken)
     {
-        return await dbContext.SharedFiles.FirstOrDefaultAsync(x => x.Id == id,  cancellationToken);
+        return await dbContext.SharedFiles.FirstOrDefaultAsync(x => x.Id == id && x.OwnerId == userId,  cancellationToken);
     }
 
-    public async Task<IEnumerable<SharedFile>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<SharedFile>> GetAllAsync(Guid userId, CancellationToken cancellationToken)
     {
-        return await dbContext.SharedFiles.ToListAsync(cancellationToken);
+        return await dbContext.SharedFiles.Where(x => x.OwnerId == userId).AsNoTracking().ToListAsync(cancellationToken);
     }
 
     public async Task CreateAsync(SharedFile sharedFile, CancellationToken cancellationToken)
@@ -21,15 +21,9 @@ public class SharedFileRepository(AppDbContext dbContext): ISharedFileRepository
         await dbContext.SharedFiles.AddAsync(sharedFile, cancellationToken);
     }
 
-    public Task UpdateAsync(Guid id, SharedFile sharedFile)
+    public async Task DeleteAsync(Guid id, Guid userId, CancellationToken cancellationToken)
     {
-        dbContext.SharedFiles.Update(sharedFile);
-        return Task.CompletedTask;
-    }
-
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
-    {
-        var sharedFile = await GetAsync(id, cancellationToken);
+        var sharedFile = await GetAsync(id, userId, cancellationToken);
         if  (sharedFile == null)
             throw new KeyNotFoundException($"File with id {id} not found");
 

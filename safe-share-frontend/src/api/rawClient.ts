@@ -1,4 +1,3 @@
-// Raw client does not return parsed result
 export default async function rawClient(url: string, options: RequestInit = {}): Promise<Response> {
     const response = await fetch(url, options);
     if (!response.ok) {

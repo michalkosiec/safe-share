@@ -1,0 +1,1 @@
+export interface UploadUrlResponse { url: string; id: string }
