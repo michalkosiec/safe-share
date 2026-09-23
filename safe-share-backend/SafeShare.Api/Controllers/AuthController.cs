@@ -50,7 +50,7 @@ public class AuthController(IMessageBus bus, ICurrentUserService currentUserServ
         var command =
             new RegisterCommand( request.Username, request.Password, request.PublicKey, request.EncryptedPrivateKey);
         await bus.InvokeAsync(command, cancellationToken);
-        return Ok();
+        return NoContent();
     }
 
     [HttpPost("logout")]
