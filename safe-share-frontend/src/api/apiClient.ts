@@ -1,4 +1,4 @@
-export default async function client<T>(url: string, options: RequestInit = {}): Promise<T | null> {
+export default async function apiClient<T>(url: string, options: RequestInit = {}): Promise<T | null> {
     const headers = new Headers(options.headers);
 
     if (!headers.has("Content-Type") && !(options.body instanceof FormData)) {

@@ -6,14 +6,14 @@ namespace SafeShare.Application.Features.Files.GenerateDownloadUrl;
 
 public class GenerateDownloadUrlCommandHandler(IFileStorageService fileStorageService, ISharedFileRepository repo)
 {
-    public async Task<string> Handle(GenerateDownloadUrlCommand command, CancellationToken cancellationToken)
+    public async Task<string> HandleAsync(GenerateDownloadUrlCommand command, CancellationToken cancellationToken)
     {
-        var fileRecord = await repo.GetAsync(command.FileId, cancellationToken);
+        var fileRecord = await repo.GetAsync(command.FileId, command.UserId, cancellationToken);
 
         if (fileRecord == null)
             throw new Exception("File not found");
 
-        if (fileRecord.OwnerId != command.OwnerId)
+        if (fileRecord.OwnerId != command.UserId)
             throw new Exception("You do not have permission to download this file");
         
         if (fileRecord.Status != SharedFileStatus.Available) 

@@ -1,4 +1,4 @@
-import client from "../../../api/client.ts";
+import apiClient from "../../../api/apiClient.ts";
 import {endpoints} from "../../../api/endpoints.ts";
 
 interface CurrentUserResponse { userId: string, username: string }
@@ -6,18 +6,18 @@ interface LoginResponse { username: string, userId: string }
 
 export class AuthService {
     static async me() {
-        return client<CurrentUserResponse>(endpoints.auth.me, {method: 'GET'});
+        return apiClient<CurrentUserResponse>(endpoints.auth.me, {method: 'GET'});
     }
 
     static async login(username: string, password: string) {
-        return client<LoginResponse>(endpoints.auth.login, {method: 'POST', body: JSON.stringify({username, password})});
+        return apiClient<LoginResponse>(endpoints.auth.login, {method: 'POST', body: JSON.stringify({username, password})});
     }
 
     static async logout() {
-        return client<void>(endpoints.auth.logout, {method: 'POST'});
+        return apiClient<void>(endpoints.auth.logout, {method: 'POST'});
     }
 
     static async register(username: string, password: string, publicKey: string, encryptedPrivateKey: string) {
-        return client<void>(endpoints.auth.register, {method: 'POST', body: JSON.stringify({username, password, publicKey, encryptedPrivateKey})});
+        return apiClient<void>(endpoints.auth.register, {method: 'POST', body: JSON.stringify({username, password, publicKey, encryptedPrivateKey})});
     }
 }
