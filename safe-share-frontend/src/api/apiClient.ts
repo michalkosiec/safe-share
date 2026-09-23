@@ -24,10 +24,5 @@ export default async function apiClient<T>(url: string, options: RequestInit = {
         return null;
     }
 
-    const contentLength = response.headers.get("content-length");
-    if (contentLength === "0" || response.body === null) {
-        return null;
-    }
-
     return response.json();
 }
