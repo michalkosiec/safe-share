@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SafeShare.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,6 +71,7 @@ namespace SafeShare.Infrastructure.Migrations
                     OwnerId = table.Column<Guid>(type: "uuid", nullable: false),
                     FileName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     ContentType = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Size = table.Column<long>(type: "bigint", nullable: false),
                     Status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>

@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using SafeShare.Application.Features.Files.DTOs;
 using SafeShare.Domain.Entities;
 using SafeShare.Domain.Repositories;
+using SafeShare.Domain.ValueObjects;
 
 namespace SafeShare.Infrastructure.Persistence.Repositories;
 
@@ -28,6 +30,15 @@ public class SharedFileRepository(AppDbContext dbContext): ISharedFileRepository
             throw new KeyNotFoundException($"File with id {id} not found");
 
         dbContext.SharedFiles.Remove(sharedFile);
+    }
+
+    public async Task<FileStats> GetStatsAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var baseQuery = dbContext.SharedFiles.Where(x => x.OwnerId == userId).AsNoTracking();
+        var fileCount = await baseQuery.CountAsync(cancellationToken);
+        var fileSize = await baseQuery.SumAsync(x => (long?)x.Size, cancellationToken) ?? 0;
+        
+        return new (fileCount, fileSize);
     }
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken)

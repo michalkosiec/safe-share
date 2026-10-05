@@ -5,6 +5,8 @@ using SafeShare.Application.Features.Files.CompleteFileUpload;
 using SafeShare.Application.Features.Files.DTOs;
 using SafeShare.Application.Features.Files.GenerateDownloadUrl;
 using SafeShare.Application.Features.Files.GenerateUploadUrl;
+using SafeShare.Application.Features.Files.GetFileStats;
+using SafeShare.Domain.ValueObjects;
 using Wolverine;
 
 namespace SafeShare.Api.Controllers;
@@ -19,7 +21,7 @@ public class FilesController(IMessageBus bus, ICurrentUserService currentUserSer
     {
         var userId = currentUserService.UserId;
 
-        var command = new GenerateUploadUrlCommand(request.FileName, request.ContentType, userId);
+        var command = new GenerateUploadUrlCommand(request.FileName, request.ContentType, request.Size, userId);
         var response = await bus.InvokeAsync<GenerateUploadUrlResponse>(command, cancellationToken);
         
         return Ok(new { Url = response.Url, Id = response.Id });
@@ -46,6 +48,17 @@ public class FilesController(IMessageBus bus, ICurrentUserService currentUserSer
         
         return NoContent();
     }
+
+    [HttpGet("stats")]
+    public async Task<IActionResult> GetStats(CancellationToken cancellationToken)
+    {
+        var userId = currentUserService.UserId;
+        
+        var query = new GetFileStatsQuery(userId);
+        var stats = await bus.InvokeAsync<FileStats>(query, cancellationToken);
+        
+        return Ok(new { Stats = stats });
+    }
     
-    public record GenerateUploadUrlRequest(string FileName, string ContentType);
+    public record GenerateUploadUrlRequest(string FileName, string ContentType, long Size);
 }

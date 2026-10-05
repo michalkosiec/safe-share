@@ -1,4 +1,5 @@
 using SafeShare.Domain.Entities;
+using SafeShare.Domain.ValueObjects;
 
 namespace SafeShare.Domain.Repositories;
 
@@ -8,5 +9,6 @@ public interface ISharedFileRepository
     Task<IEnumerable<SharedFile>> GetAllAsync(Guid userId, CancellationToken cancellationToken = default);
     Task CreateAsync(SharedFile sharedFile,  CancellationToken cancellationToken = default);
     Task DeleteAsync(Guid id, Guid userId, CancellationToken cancellationToken = default);
+    Task<FileStats> GetStatsAsync(Guid userId, CancellationToken cancellationToken = default);
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

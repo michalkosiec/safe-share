@@ -15,16 +15,19 @@ public class SharedFile
     
     public string ContentType { get; set; }
     
+    public long Size { get; set; }
+    
     public SharedFileStatus Status { get; set; }
     
     private SharedFile() {}
 
-    public SharedFile(Guid ownerId, string fileName, string contentType)
+    public SharedFile(Guid ownerId, string fileName, string contentType, long size)
     {
         Id = Guid.NewGuid();
         OwnerId = ownerId;
         FileName = fileName;
         ContentType = contentType;
+        Size = size;
         Status = SharedFileStatus.Pending;
     }
 

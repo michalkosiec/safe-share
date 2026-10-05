@@ -10,7 +10,7 @@ export const useFileUpload = () => {
         setError(null);
 
         try {
-            const response = await FileService.requestUploadUrl(file.name, file.type || "application/octet-stream");
+            const response = await FileService.requestUploadUrl(file.name, file.type || "application/octet-stream", file.size);
 
             await FileService.uploadToS3(response.url, file);
             await FileService.completeFileUpload(response.id);

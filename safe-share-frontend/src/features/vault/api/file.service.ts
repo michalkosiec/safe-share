@@ -1,11 +1,11 @@
 import apiClient from "../../../api/apiClient.ts";
 import {endpoints} from "../../../api/endpoints.ts";
 import rawClient from "../../../api/rawClient.ts";
-import type {UploadUrlResponse} from "../../../types/api.ts";
+import type {FileStats, UploadUrlResponse} from "../../../types/api.ts";
 
 export class FileService {
-    static async requestUploadUrl(fileName: string, contentType: string): Promise<UploadUrlResponse> {
-        const response = await apiClient<UploadUrlResponse>(endpoints.files.uploadUrl, {method: 'POST', body: JSON.stringify({fileName, contentType})})
+    static async requestUploadUrl(fileName: string, contentType: string, size: number): Promise<UploadUrlResponse> {
+        const response = await apiClient<UploadUrlResponse>(endpoints.files.uploadUrl, {method: 'POST', body: JSON.stringify({fileName, contentType, size})})
         if (!response) {
             throw new Error("Cannot fetch upload url.");
         }
@@ -43,5 +43,13 @@ export class FileService {
 
     static async completeFileUpload(fileId: string): Promise<void> {
         await apiClient<void>(endpoints.files.completeUpload(fileId), {method: 'POST', body: JSON.stringify({fileId})});
+    }
+
+    static async getFileStats(): Promise<FileStats> {
+        const response = await apiClient<FileStats>(endpoints.files.getStats, {method: 'GET'});
+        if (!response)
+            throw new Error("Cannot get file stats");
+
+        return response;
     }
 }

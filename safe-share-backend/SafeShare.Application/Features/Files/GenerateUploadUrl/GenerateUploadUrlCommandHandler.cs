@@ -9,7 +9,7 @@ public class GenerateUploadUrlCommandHandler(IFileStorageService fileStorageServ
 {
     public async Task<GenerateUploadUrlResponse> HandleAsync(GenerateUploadUrlCommand command, CancellationToken cancellationToken)
     {
-        var fileRecord = new SharedFile(command.UserId, command.FileName, command.ContentType);
+        var fileRecord = new SharedFile(command.UserId, command.FileName, command.ContentType, command.Size);
         await repo.CreateAsync(fileRecord, cancellationToken);
         await repo.SaveChangesAsync(cancellationToken);
 

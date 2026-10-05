@@ -12,8 +12,8 @@ using SafeShare.Infrastructure.Persistence;
 namespace SafeShare.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260820175054_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20261005200555_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,6 +77,9 @@ namespace SafeShare.Infrastructure.Migrations
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uuid");
+
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Status")
                         .IsRequired()

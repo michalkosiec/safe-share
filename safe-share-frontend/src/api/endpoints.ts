@@ -14,6 +14,7 @@ export const endpoints = {
         uploadUrl: `${API_URL}/files/upload-url`,
         completeUpload(fileId: string) {
             return `${API_URL}/files/${fileId}/complete-upload`;
-        }
-    }
+        },
+        getStats: `${API_URL}/stats`,
+    },
 }
